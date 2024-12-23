@@ -26,6 +26,13 @@ defmodule AllyourgymWeb.Router do
     live "/workouts/:id", WorkoutLive.Show, :show
     live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
 
+    live "/exercises", ExerciseLive.Index, :index
+    live "/exercises/new", ExerciseLive.Index, :new
+    live "/exercises/:id/edit", ExerciseLive.Index, :edit
+
+    live "/exercises/:id", ExerciseLive.Show, :show
+    live "/exercises/:id/show/edit", ExerciseLive.Show, :edit
+
     get "/", PageController, :home
   end
 

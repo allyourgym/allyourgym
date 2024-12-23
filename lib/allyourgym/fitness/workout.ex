@@ -10,7 +10,10 @@ defmodule Allyourgym.Fitness.Workout do
     field :description, :string
     field :is_public, :boolean, default: false
     field :notes, :string
-    field :created_by_id, :id
+    field :is_prebuilt, :boolean, default: false
+    belongs_to :created_by, Allyourgym.Accounts.User
+
+    many_to_many :exercises, Allyourgym.Fitness.Exercise, join_through: "workouts_exercises"
 
     timestamps(type: :utc_datetime)
   end

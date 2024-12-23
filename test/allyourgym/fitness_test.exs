@@ -62,4 +62,66 @@ defmodule Allyourgym.FitnessTest do
       assert %Ecto.Changeset{} = Fitness.change_workout(workout)
     end
   end
+
+  describe "exercises" do
+    alias Allyourgym.Fitness.Exercise
+
+    import Allyourgym.FitnessFixtures
+
+    @invalid_attrs %{name: nil, base_resistance: nil, notes: nil, youtube_link: nil, illustration_card_number: nil}
+
+    test "list_exercises/0 returns all exercises" do
+      exercise = exercise_fixture()
+      assert Fitness.list_exercises() == [exercise]
+    end
+
+    test "get_exercise!/1 returns the exercise with given id" do
+      exercise = exercise_fixture()
+      assert Fitness.get_exercise!(exercise.id) == exercise
+    end
+
+    test "create_exercise/1 with valid data creates a exercise" do
+      valid_attrs = %{name: "some name", base_resistance: 120.5, notes: "some notes", youtube_link: "some youtube_link", illustration_card_number: 42}
+
+      assert {:ok, %Exercise{} = exercise} = Fitness.create_exercise(valid_attrs)
+      assert exercise.name == "some name"
+      assert exercise.base_resistance == 120.5
+      assert exercise.notes == "some notes"
+      assert exercise.youtube_link == "some youtube_link"
+      assert exercise.illustration_card_number == 42
+    end
+
+    test "create_exercise/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Fitness.create_exercise(@invalid_attrs)
+    end
+
+    test "update_exercise/2 with valid data updates the exercise" do
+      exercise = exercise_fixture()
+      update_attrs = %{name: "some updated name", base_resistance: 456.7, notes: "some updated notes", youtube_link: "some updated youtube_link", illustration_card_number: 43}
+
+      assert {:ok, %Exercise{} = exercise} = Fitness.update_exercise(exercise, update_attrs)
+      assert exercise.name == "some updated name"
+      assert exercise.base_resistance == 456.7
+      assert exercise.notes == "some updated notes"
+      assert exercise.youtube_link == "some updated youtube_link"
+      assert exercise.illustration_card_number == 43
+    end
+
+    test "update_exercise/2 with invalid data returns error changeset" do
+      exercise = exercise_fixture()
+      assert {:error, %Ecto.Changeset{}} = Fitness.update_exercise(exercise, @invalid_attrs)
+      assert exercise == Fitness.get_exercise!(exercise.id)
+    end
+
+    test "delete_exercise/1 deletes the exercise" do
+      exercise = exercise_fixture()
+      assert {:ok, %Exercise{}} = Fitness.delete_exercise(exercise)
+      assert_raise Ecto.NoResultsError, fn -> Fitness.get_exercise!(exercise.id) end
+    end
+
+    test "change_exercise/1 returns a exercise changeset" do
+      exercise = exercise_fixture()
+      assert %Ecto.Changeset{} = Fitness.change_exercise(exercise)
+    end
+  end
 end

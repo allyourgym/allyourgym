@@ -20,6 +20,12 @@ defmodule AllyourgymWeb.Router do
   scope "/", AllyourgymWeb do
     pipe_through :browser
 
+    live "/workouts", WorkoutLive.Index, :index
+    live "/workouts/new", WorkoutLive.Index, :new
+    live "/workouts/:id/edit", WorkoutLive.Index, :edit
+    live "/workouts/:id", WorkoutLive.Show, :show
+    live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
+
     get "/", PageController, :home
   end
 

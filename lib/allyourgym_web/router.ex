@@ -2,6 +2,7 @@ defmodule AllyourgymWeb.Router do
   use AllyourgymWeb, :router
 
   import AllyourgymWeb.UserAuth
+  import Backpex.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -34,6 +35,15 @@ defmodule AllyourgymWeb.Router do
     live "/exercises/:id/show/edit", ExerciseLive.Show, :edit
 
     get "/", PageController, :home
+  end
+
+  scope "/admin", AllyourgymWeb do
+    pipe_through [:browser]
+    backpex_routes()
+
+    live_session :default, on_mount: Backpex.InitAssigns do
+      live_resources "/users", UserLive
+    end
   end
 
   # Other scopes may use custom stacks.

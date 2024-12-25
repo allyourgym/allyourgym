@@ -1,4 +1,7 @@
 defmodule Allyourgym.AccountsTest do
+  @moduledoc """
+  Tests for the Allyourgym.Accounts module.
+  """
   use Allyourgym.DataCase
 
   alias Allyourgym.Accounts

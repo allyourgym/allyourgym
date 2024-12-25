@@ -165,4 +165,19 @@ defmodule Allyourgym.Accounts.User do
       add_error(changeset, :current_password, "is not valid")
     end
   end
+
+  # Changeset for creating a user
+  def create_changeset(user, attrs, _metadata \\ []) do
+    user
+    |> cast(attrs, [:email, :name, :height, :gender])
+    |> validate_required([:email, :name])
+    |> unique_constraint(:email)
+  end
+
+  # Changeset for updating a user
+  def update_changeset(user, attrs, _metadata \\ []) do
+    user
+    |> cast(attrs, [:email, :name, :height, :gender])
+    |> validate_required([:email, :name])
+  end
 end

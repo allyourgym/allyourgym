@@ -1,12 +1,15 @@
 defmodule AllyourgymWeb.ExerciseLiveTest do
+  @moduledoc """
+  Tests for the ExerciseLive module.
+  """
   use AllyourgymWeb.ConnCase
 
   import Phoenix.LiveViewTest
   import Allyourgym.FitnessFixtures
 
-  @create_attrs %{name: "some name", base_resistance: 120.5, notes: "some notes", youtube_link: "some youtube_link", illustration_card_number: 42}
-  @update_attrs %{name: "some updated name", base_resistance: 456.7, notes: "some updated notes", youtube_link: "some updated youtube_link", illustration_card_number: 43}
-  @invalid_attrs %{name: nil, base_resistance: nil, notes: nil, youtube_link: nil, illustration_card_number: nil}
+  @create_attrs %{name: "some name", notes: "some notes", youtube_link: "some youtube_link", illustration_card_number: 42, muscle_group: "some muscle_group"}
+  @update_attrs %{name: "some updated name", notes: "some updated notes", youtube_link: "some updated youtube_link", illustration_card_number: 43, muscle_group: "some updated muscle_group"}
+  @invalid_attrs %{name: nil, notes: nil, youtube_link: nil, illustration_card_number: nil, muscle_group: nil}
 
   defp create_exercise(_) do
     exercise = exercise_fixture()

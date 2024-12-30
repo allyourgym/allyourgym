@@ -20,10 +20,10 @@ defmodule AllyourgymWeb.ExerciseLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:base_resistance]} type="number" label="Base resistance" step="any" />
         <.input field={@form[:notes]} type="text" label="Notes" />
         <.input field={@form[:youtube_link]} type="text" label="Youtube link" />
         <.input field={@form[:illustration_card_number]} type="number" label="Illustration card number" />
+        <.input field={@form[:muscle_group]} type="text" label="Category"/>
         <:actions>
           <.button phx-disable-with="Saving...">Save Exercise</.button>
         </:actions>

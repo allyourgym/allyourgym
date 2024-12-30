@@ -12,6 +12,7 @@ defmodule AllyourgymWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug Backpex.ThemeSelectorPlug
   end
 
   pipeline :api do
@@ -43,6 +44,8 @@ defmodule AllyourgymWeb.Router do
 
     live_session :default, on_mount: Backpex.InitAssigns do
       live_resources "/users", UserLive
+      live_resources "/workouts", WorkoutLive
+      live_resources "/exercises", ExerciseLive
     end
   end
 

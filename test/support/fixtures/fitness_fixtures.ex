@@ -32,11 +32,11 @@ defmodule Allyourgym.FitnessFixtures do
     {:ok, exercise} =
       attrs
       |> Enum.into(%{
-        base_resistance: 120.5,
         illustration_card_number: 42,
         name: "some name",
         notes: "some notes",
-        youtube_link: "some youtube_link"
+        youtube_link: "some youtube_link",
+        muscle_group: "some muscle_group"
       })
       |> Allyourgym.Fitness.create_exercise()
 

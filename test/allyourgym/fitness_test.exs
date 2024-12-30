@@ -71,7 +71,7 @@ defmodule Allyourgym.FitnessTest do
 
     import Allyourgym.FitnessFixtures
 
-    @invalid_attrs %{name: nil, base_resistance: nil, notes: nil, youtube_link: nil, illustration_card_number: nil}
+    @invalid_attrs %{name: nil, notes: nil, youtube_link: nil, illustration_card_number: nil, muscle_group: nil}
 
     test "list_exercises/0 returns all exercises" do
       exercise = exercise_fixture()
@@ -84,14 +84,14 @@ defmodule Allyourgym.FitnessTest do
     end
 
     test "create_exercise/1 with valid data creates a exercise" do
-      valid_attrs = %{name: "some name", base_resistance: 120.5, notes: "some notes", youtube_link: "some youtube_link", illustration_card_number: 42}
+      valid_attrs = %{name: "some name", notes: "some notes", youtube_link: "some youtube_link", illustration_card_number: 42, muscle_group: "some muscle_group"}
 
       assert {:ok, %Exercise{} = exercise} = Fitness.create_exercise(valid_attrs)
       assert exercise.name == "some name"
-      assert exercise.base_resistance == 120.5
       assert exercise.notes == "some notes"
       assert exercise.youtube_link == "some youtube_link"
       assert exercise.illustration_card_number == 42
+      assert exercise.muscle_group == "some muscle_group"
     end
 
     test "create_exercise/1 with invalid data returns error changeset" do
@@ -100,11 +100,10 @@ defmodule Allyourgym.FitnessTest do
 
     test "update_exercise/2 with valid data updates the exercise" do
       exercise = exercise_fixture()
-      update_attrs = %{name: "some updated name", base_resistance: 456.7, notes: "some updated notes", youtube_link: "some updated youtube_link", illustration_card_number: 43}
+      update_attrs = %{name: "some updated name", notes: "some updated notes", youtube_link: "some updated youtube_link", illustration_card_number: 43, muscle_group: "some updated muscle_group"}
 
       assert {:ok, %Exercise{} = exercise} = Fitness.update_exercise(exercise, update_attrs)
       assert exercise.name == "some updated name"
-      assert exercise.base_resistance == 456.7
       assert exercise.notes == "some updated notes"
       assert exercise.youtube_link == "some updated youtube_link"
       assert exercise.illustration_card_number == 43

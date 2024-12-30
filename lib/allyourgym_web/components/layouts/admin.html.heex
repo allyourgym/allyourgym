@@ -1,8 +1,31 @@
-<Backpex.HTML.Layout.app_shell fluid={@fluid?}>
+<%!-- <Backpex.HTML.Layout.app_shell fluid={@fluid?}> --%>
+<Backpex.HTML.Layout.app_shell fluid={true}>
   <:topbar>
     <Backpex.HTML.Layout.topbar_branding />
 
+    <Backpex.HTML.Layout.theme_selector
+      socket={@socket}
+      themes={[
+        {"Light", "light"},
+        {"Dark", "dark"},
+        {"Cyberpunk", "cyberpunk"}
+      ]}
+    />
+
     <Backpex.HTML.Layout.topbar_dropdown>
+      <:label>
+        <label tabindex="0" class="btn btn-square btn-ghost">
+          <Backpex.HTML.CoreComponents.icon name="hero-user" class="h-8 w-8" />
+        </label>
+      </:label>
+      <li>
+        <.link navigate="/" class="flex justify-between text-error hover:bg-base-200">
+          <p>Logout</p>
+          <Backpex.HTML.CoreComponents.icon name="hero-arrow-right-on-rectangle" class="h-5 w-5" />
+        </.link>
+      </li>
+    </Backpex.HTML.Layout.topbar_dropdown>
+    <%!-- <Backpex.HTML.Layout.topbar_dropdown>
       <:label>
         <label tabindex="0" class="btn btn-square btn-ghost">
           <.icon name="hero-user" class="h-8 w-8" />
@@ -14,11 +37,18 @@
           <.icon name="hero-arrow-right-on-rectangle" class="h-5 w-5" />
         </.link>
       </li>
-    </Backpex.HTML.Layout.topbar_dropdown>
+    </Backpex.HTML.Layout.topbar_dropdown> --%>
   </:topbar>
+
   <:sidebar>
     <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/users"}>
       <.icon name="hero-book-open" class="h-5 w-5" /> Users
+    </Backpex.HTML.Layout.sidebar_item>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/exercises"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> Exercises
+    </Backpex.HTML.Layout.sidebar_item>
+    <Backpex.HTML.Layout.sidebar_item current_url={@current_url} navigate={~p"/admin/workouts"}>
+      <.icon name="hero-book-open" class="h-5 w-5" /> Workouts
     </Backpex.HTML.Layout.sidebar_item>
   </:sidebar>
   <Backpex.HTML.Layout.flash_messages flash={@flash} />

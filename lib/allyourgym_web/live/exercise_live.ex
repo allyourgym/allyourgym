@@ -10,7 +10,7 @@ defmodule AllyourgymWeb.ExerciseLive do
     pubsub: [
       name: Allyourgym.PubSub,
       topic: "exercises",
-      event_prefix: "exercises"
+      event_prefix: "exercises_"
     ]
 
   @impl Backpex.LiveResource

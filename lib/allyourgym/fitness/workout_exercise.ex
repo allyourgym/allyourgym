@@ -5,10 +5,11 @@ defmodule Allyourgym.Fitness.WorkoutExercise do
   use Ecto.Schema
   import Ecto.Changeset
 
+
   schema "workouts_exercises" do
-    field :position, :integer
     belongs_to :workout, Allyourgym.Fitness.Workout
     belongs_to :exercise, Allyourgym.Fitness.Exercise
+    field :position, :integer
 
     timestamps(type: :utc_datetime)
   end
@@ -16,8 +17,11 @@ defmodule Allyourgym.Fitness.WorkoutExercise do
   @doc false
   def changeset(workout_exercise, attrs) do
     workout_exercise
-    |> cast(attrs, [:workout_id, :exercise_id, :position])
+    |> cast(attrs, [:exercise_id, :position])
+    # |> cast(attrs, [:workout_id, :exercise_id, :position])
     |> validate_required([:workout_id, :exercise_id])
     |> unique_constraint([:workout_id, :exercise_id])
+    |> foreign_key_constraint(:workout_id)
+    |> foreign_key_constraint(:exercise_id)
   end
 end

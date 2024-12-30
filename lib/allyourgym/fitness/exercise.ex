@@ -11,9 +11,10 @@ defmodule Allyourgym.Fitness.Exercise do
     field :youtube_link, :string
     field :illustration_card_number, :integer
     field :muscle_group, :string
+    field :eee, :string, virtual: true
 
     # many_to_many :workouts, Allyourgym.Fitness.Workout, join_through: "workouts_exercises"
-    many_to_many :workouts, Allyourgym.Fitness.Workout, join_through: Allyourgym.Fitness.WorkoutExercise
+    # many_to_many :workouts, Allyourgym.Fitness.Workout, join_through: Allyourgym.Fitness.WorkoutExercise
 
     timestamps(type: :utc_datetime)
   end

@@ -19,6 +19,20 @@ defmodule Allyourgym.Fitness do
   """
   def list_workouts do
     Repo.all(Workout)
+    # |> Repo.preload(:exercises)
+  end
+
+  def get_workout_with_exercises!(id) do
+    # query = from w in Workout,
+    #   where: w.id == ^id,
+    #   join: we in assoc(w, :workout_exercises),
+    #   join: e in assoc(we, :exercise),
+    #   select: {w, we, e}
+
+    # Repo.one(query)
+    Repo.get!(Workout, id)
+    |> Repo.preload(workout_exercises: :exercise)
+    # |> Repo.preload(exercise: :exercise)
   end
 
   @doc """

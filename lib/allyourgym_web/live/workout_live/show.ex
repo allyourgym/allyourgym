@@ -4,9 +4,24 @@ defmodule AllyourgymWeb.WorkoutLive.Show do
   alias Allyourgym.Fitness
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+
+
+  def mount(%{"id" => id}, _session, socket) do
+    workout = Fitness.get_workout_with_exercises!(id)
+    workout_exercises = Enum.sort_by(workout.workout_exercises, & &1.position)
+
+    {:ok, assign(socket, workout: workout, workout_exercises: workout_exercises)}
   end
+
+  def mount(_params, _session, socket) do
+    # {:ok, stream(socket, :workouts, Fitness.list_workouts())}
+    workouts = Fitness.list_workouts()
+    # {:ok, assign(socket, workouts: workouts)}
+    {:ok, stream(socket, :workouts, workouts)}
+    # {:ok, socket}
+  end
+
+
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do

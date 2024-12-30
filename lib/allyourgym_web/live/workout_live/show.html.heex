@@ -1,3 +1,5 @@
+<Backpex.HTML.Layout.app_shell fluid={true}>
+
 <.header>
   Workout {@workout.id}
   <:subtitle>This is a workout record from your database.</:subtitle>
@@ -13,7 +15,62 @@
   <:item title="Description">{@workout.description}</:item>
   <:item title="Is public">{@workout.is_public}</:item>
   <:item title="Notes">{@workout.notes}</:item>
-</.list>
+  </.list>
+
+<h2>Exercises</h2>
+<table id="sortable-table" phx-hook="Sortable">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Name</th>
+      <th>Muscle Group</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for workout_exercise <- @workout_exercises do %>
+        <tr data-id={workout_exercise.id}>
+        <td><%= workout_exercise.position %></td>
+        <td><%= workout_exercise.exercise.name %></td>
+        <td><%= workout_exercise.exercise.muscle_group %></td>
+        <td><%= workout_exercise.exercise.notes %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> --%>
+
+
+  <%!-- <h2>Exercises</h2>
+<.table id="exercises" rows={@exercises}>
+  <:col :let={exercise} label="Name">
+    <%= exercise.name %>
+  </:col>
+  <:col :let={exercise} label="Category">
+    <%= exercise.muscle_group %>
+  </:col>
+  <:col :let={exercise} label="Notes">
+    <%= exercise.notes %>
+  </:col>
+  <:action :let={exercise}>
+    <.link patch={~p"/exercises/#{exercise.id}"}>Show</.link>
+  </:action>
+</.table>
+
+<%!-- <h2>Exercises</h2>
+<.table id="exercises" rows={@workout_exercises}>
+  <:col :let={exercise} label="Name">
+    <%= exercise.name %>
+  </:col>
+  <:col :let={exercise} label="Category">
+    <%= exercise.muscle_group %>
+  </:col>
+  <:col :let={exercise} label="Notes">
+    <%= exercise.notes %>
+  </:col>
+  <:action :let={exercise}>
+    <.link patch={~p"/exercises/#{exercise.id}"}>Show</.link>
+  </:action>
+</.table> --%>
 
 <.back navigate={~p"/workouts"}>Back to workouts</.back>
 
@@ -27,3 +84,4 @@
     patch={~p"/workouts/#{@workout}"}
   />
 </.modal>
+</Backpex.HTML.Layout.app_shell>

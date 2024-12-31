@@ -41,3 +41,5 @@ fly.toml
 /rel/
 .github/workflows/fly-deploy.yml
 
+# Ignore local docker postgres data
+/pgdata_dev/

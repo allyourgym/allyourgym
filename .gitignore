@@ -35,3 +35,9 @@ allyourgym-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Fly.io
+fly.toml
+/lib/allyourgym/release.ex
+/rel/
+.github/workflows/fly-deploy.yml
+

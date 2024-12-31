@@ -5,6 +5,9 @@ You can view, create and customize workouts for sliding board trainers like the 
 
 Features an admin dashboard to examine users, workouts and exercises as well as edit and create them.
 
+## Documentation Pages
+https://allyourgym.github.io/allyourgym/
+
 
 ## Running Locally
 A script is included to create a docker container to run the app as well as a docker container to run postgresql in a container.

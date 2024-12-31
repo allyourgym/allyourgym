@@ -24,20 +24,36 @@ module.exports = {
       }
     }
   },
+  // daisyui: {
+  //   themes: [
+  //     {
+  //       light: {
+  //         ...require('daisyui/src/theming/themes').light,
+  //         primary: '#1d4ed8',
+  //         'primary-content': 'white',
+  //         secondary: '#f39325',
+  //         'secondary-content': 'white'
+  //       }
+  //     },
+  //     'dark',
+  //     'cyberpunk'
+  //   ]
+  // },
   daisyui: {
-    themes: [
-      {
-        light: {
-          ...require('daisyui/src/theming/themes').light,
-          primary: '#1d4ed8',
-          'primary-content': 'white',
-          secondary: '#f39325',
-          'secondary-content': 'white'
-        }
-      },
-      'dark',
-      'cyberpunk'
-    ]
+    themes: false
+    //  [
+    //   {
+    //     light: {
+    //       ...light,
+    //       primary: '#1d4ed8',
+    //       'primary-content': 'white',
+    //       secondary: '#f39325',
+    //       'secondary-content': 'white'
+    //     }
+    //   },
+    //   'dark',
+    //   'cyberpunk'
+    // ]
   },
   plugins: [
     // commented out for backpex

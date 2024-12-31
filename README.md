@@ -1,18 +1,21 @@
 # Allyourgym
 
-To start your Phoenix server:
+An opensource web app written in Elixir using the Phoenix framework.
+You can view, create and customize workouts for sliding board trainers like the total gym.
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Features an admin dashboard to examine users, workouts and exercises as well as edit and create them.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Running Locally
+A script is included to create a docker container to run the app as well as a docker container to run postgresql in a container.
 
-## Learn more
+Start it like so:
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```
+sudo chmod +x setup.sh
+./setup.sh
+```
+
+Then visit http://localhost:4000 in your browser.
+
+The postgres data is persisted in the `pgdata_dev` dir.

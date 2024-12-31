@@ -7,6 +7,7 @@ defmodule Allyourgym.Fitness do
   alias Allyourgym.Repo
 
   alias Allyourgym.Fitness.Workout
+  alias Allyourgym.Fitness.WorkoutExercise
 
   @doc """
   Returns the list of workouts.
@@ -35,6 +36,45 @@ defmodule Allyourgym.Fitness do
     # |> Repo.preload(exercise: :exercise)
   end
 
+  # def update_workout_exercise_position(id, position) do
+  # IO.inspect(id, label: "Updating WorkoutExercise ID")
+  # IO.inspect(position, label: "New Position")
+
+  # workout_exercise = Repo.get!(WorkoutExercise, id)
+  # IO.inspect(workout_exercise, label: "Fetched WorkoutExercise")
+
+  #   workout_exercise
+  #   |> Ecto.Changeset.change(position: position)
+  #   |> Repo.update()
+  # end
+
+  def update_workout_exercise_position(id, position) do
+    workout_exercise = Repo.get!(WorkoutExercise, id)
+    changeset = WorkoutExercise.changeset(workout_exercise, %{position: position})
+
+    Repo.update!(changeset)
+  end
+
+def add_exercise_to_workout(workout_id, exercise_id) do
+  # Find the next position for the new exercise
+  next_position =
+    Repo.one(
+      from we in WorkoutExercise,
+      where: we.workout_id == ^workout_id,
+      select: max(we.position)
+    ) || 0
+
+  # Create the new association
+  %WorkoutExercise{}
+  |> WorkoutExercise.changeset(%{
+    workout_id: workout_id,
+    exercise_id: exercise_id,
+    position: next_position + 1
+  })
+  |> Repo.insert()
+end
+
+
   @doc """
   Gets a single workout.
 
@@ -51,6 +91,10 @@ defmodule Allyourgym.Fitness do
   """
   def get_workout!(id), do: Repo.get!(Workout, id)
 
+  @spec create_workout(
+          :invalid
+          | %{optional(:__struct__) => none(), optional(atom() | binary()) => any()}
+        ) :: any()
   @doc """
   Creates a workout.
 

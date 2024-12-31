@@ -17,8 +17,8 @@ defmodule Allyourgym.Fitness.WorkoutExercise do
   @doc false
   def changeset(workout_exercise, attrs) do
     workout_exercise
-    |> cast(attrs, [:exercise_id, :position])
-    # |> cast(attrs, [:workout_id, :exercise_id, :position])
+    # |> cast(attrs, [:exercise_id, :position])
+    |> cast(attrs, [:workout_id, :exercise_id, :position])
     |> validate_required([:workout_id, :exercise_id])
     |> unique_constraint([:workout_id, :exercise_id])
     |> foreign_key_constraint(:workout_id)

@@ -1,10 +1,10 @@
 <.header>
-  Listing Exercises
-  <:actions>
+  Exercises
+  <%!-- <:actions>
     <.link patch={~p"/exercises/new"}>
       <.button>New Exercise</.button>
     </.link>
-  </:actions>
+  </:actions> --%>
 </.header>
 
 <.table
@@ -13,11 +13,11 @@
   row_click={fn {_id, exercise} -> JS.navigate(~p"/exercises/#{exercise}") end}
 >
   <:col :let={{_id, exercise}} label="Name">{exercise.name}</:col>
-  <:col :let={{_id, exercise}} label="Notes">{exercise.notes}</:col>
-  <:col :let={{_id, exercise}} label="Youtube link">{exercise.youtube_link}</:col>
+  <%!-- <:col :let={{_id, exercise}} label="Notes">{exercise.notes}</:col> --%>
+  <%!-- <:col :let={{_id, exercise}} label="Youtube link">{exercise.youtube_link}</:col> --%>
   <:col :let={{_id, exercise}} label="Illustration card number">{exercise.illustration_card_number}</:col>
   <:col :let={{_id, exercise}} label="Category">{exercise.muscle_group}</:col>
-  <:action :let={{_id, exercise}}>
+  <%!-- <:action :let={{_id, exercise}}>
     <div class="sr-only">
       <.link navigate={~p"/exercises/#{exercise}"}>Show</.link>
     </div>
@@ -30,7 +30,7 @@
     >
       Delete
     </.link>
-  </:action>
+  </:action> --%>
 </.table>
 
 <.modal :if={@live_action in [:new, :edit]} id="exercise-modal" show on_cancel={JS.patch(~p"/exercises")}>

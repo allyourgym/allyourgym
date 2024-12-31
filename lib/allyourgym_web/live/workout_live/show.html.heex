@@ -1,4 +1,3 @@
-<Backpex.HTML.Layout.app_shell fluid={true}>
 
 <.header>
   Workout {@workout.id}
@@ -17,8 +16,9 @@
   <:item title="Notes">{@workout.notes}</:item>
   </.list>
 
-<h2>Exercises</h2>
-<table id="sortable-table" phx-hook="Sortable">
+<%!-- <h2>Exercises</h2>
+<%!-- <table "sortable-table"> 
+<table class="w-full" id="sortable-table">
   <thead>
     <tr>
       <th>Position</th>
@@ -27,7 +27,7 @@
       <th>Notes</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id='sortable-tbody' phx-hook="Sortable">
     <%= for workout_exercise <- @workout_exercises do %>
         <tr data-id={workout_exercise.id}>
         <td><%= workout_exercise.position %></td>
@@ -40,21 +40,31 @@
 </table> --%>
 
 
-  <%!-- <h2>Exercises</h2>
-<.table id="exercises" rows={@exercises}>
-  <:col :let={exercise} label="Name">
-    <%= exercise.name %>
+  <%!-- <%!-- <h2>Exercises</h2> --%>
+<.sortable_table id="exercises"
+ rows={@streams.workout_exercises}
+ data_id={fn {_id, workout_exercise} -> workout_exercise.id end}
+ >
+  <%!-- <:col :let={{_id, workout}} label="Name">{workout.name}</:col> --%>
+
+  <:col :let={{_id, workout_exercise}} label="Position">
+    {workout_exercise.position}
   </:col>
-  <:col :let={exercise} label="Category">
+  <:col :let={{_id, workout_exercise}} label="Name">
+    {workout_exercise.exercise.name}
+  </:col>
+
+
+  <%!-- <:col :let={exercise} label="Category">
     <%= exercise.muscle_group %>
   </:col>
   <:col :let={exercise} label="Notes">
     <%= exercise.notes %>
-  </:col>
-  <:action :let={exercise}>
-    <.link patch={~p"/exercises/#{exercise.id}"}>Show</.link>
+  </:col> --%>
+  <:action :let={{_id, workout_exercise}}>
+    <.link patch={~p"/exercises/#{workout_exercise.exercise.id}"}>Show</.link>
   </:action>
-</.table>
+</.sortable_table>
 
 <%!-- <h2>Exercises</h2>
 <.table id="exercises" rows={@workout_exercises}>
@@ -72,6 +82,30 @@
   </:action>
 </.table> --%>
 
+<h3>Add New Exercise</h3>
+<.simple_form for={%{}} as={:exercise} phx-submit="add_exercise">
+  <.input
+    type="select"
+    name="exercise_id"
+    label="Select Exercise"
+    options={@available_exercises_list}
+    value="id"
+  />
+  <.button>Add to Workout</.button>
+</.simple_form>
+
+
+<%!-- <h3>Add New Exercise</h3>
+<form phx-submit="add_exercise">
+  <label for="exercise">Select Exercise:</label>
+  <select name="exercise_id" id="exercise">
+    <%= for exercise <- @streams.available_exercises do %>
+      <option value={exercise.id}><%= exercise.name %></option>
+    <% end %>
+  </select>
+  <button type="submit">Add to Workout</button>
+</form> --%>
+
 <.back navigate={~p"/workouts"}>Back to workouts</.back>
 
 <.modal :if={@live_action == :edit} id="workout-modal" show on_cancel={JS.patch(~p"/workouts/#{@workout}")}>
@@ -84,4 +118,3 @@
     patch={~p"/workouts/#{@workout}"}
   />
 </.modal>
-</Backpex.HTML.Layout.app_shell>

@@ -17,6 +17,10 @@ module.exports = {
     extend: {
       colors: {
         brand: '#FD4F00'
+      },
+      backgroundColor: {
+        'scrollbar-gutter': 'var(--scrollbar-gutter-color, transparent)',
+        'scrollbar-gutter-dark': 'var(--scrollbar-gutter-color-dark, #1A202C)' // Use your dark background color here
       }
     }
   },
@@ -37,7 +41,7 @@ module.exports = {
   },
   plugins: [
     // commented out for backpex
-    // require("@tailwindcss/forms"),
+    require('@tailwindcss/forms'),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //

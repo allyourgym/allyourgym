@@ -22,6 +22,7 @@ import { Socket } from 'phoenix'
 import { LiveSocket } from 'phoenix_live_view'
 import topbar from '../vendor/topbar'
 import Alpine from 'alpinejs'
+import Sortable from 'sortablejs'
 
 const storedTheme = window.localStorage.getItem('backpexTheme')
 if (storedTheme != null) {
@@ -29,6 +30,23 @@ if (storedTheme != null) {
 }
 
 const Hooks = {}
+
+Hooks.Sortable = {
+  mounted () {
+    const el = this.el
+    new Sortable(el, {
+      animation: 150,
+      // dragClass: 'drag-item',
+      // ghostClass: 'drag-ghost',
+      dragClass: 'bg-gray-100',
+      ghostClass: 'shadow-2xl',
+      onEnd: (event) => {
+        const order = Array.from(el.querySelectorAll('tr')).map((row) => row.dataset.id)
+        this.pushEvent('reorder', { order })
+      }
+    })
+  }
+}
 
 Hooks.BackpexThemeSelector = {
   mounted () {

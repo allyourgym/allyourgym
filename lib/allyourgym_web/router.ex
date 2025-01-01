@@ -19,27 +19,22 @@ defmodule AllyourgymWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :require_admin do
+    plug AllyourgymWeb.Plugs.RequireRole, :admin
+  end
+
+  pipeline :require_user do
+    plug AllyourgymWeb.Plugs.RequireRole, :user
+  end
+
   scope "/", AllyourgymWeb do
     pipe_through :browser
-
-    live "/workouts", WorkoutLive.Index, :index
-    live "/workouts/new", WorkoutLive.Index, :new
-    live "/workouts/:id/edit", WorkoutLive.Index, :edit
-    live "/workouts/:id", WorkoutLive.Show, :show
-    live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
-
-    live "/exercises", ExerciseLive.Index, :index
-    live "/exercises/new", ExerciseLive.Index, :new
-    live "/exercises/:id/edit", ExerciseLive.Index, :edit
-
-    live "/exercises/:id", ExerciseLive.Show, :show
-    live "/exercises/:id/show/edit", ExerciseLive.Show, :edit
 
     get "/", PageController, :home
   end
 
   scope "/admin", AllyourgymWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :require_admin]
     backpex_routes()
 
     live_session :default, on_mount: Backpex.InitAssigns do
@@ -89,6 +84,19 @@ defmodule AllyourgymWeb.Router do
 
   scope "/", AllyourgymWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    live "/workouts", WorkoutLive.Index, :index
+    live "/workouts/new", WorkoutLive.Index, :new
+    live "/workouts/:id/edit", WorkoutLive.Index, :edit
+    live "/workouts/:id", WorkoutLive.Show, :show
+    live "/workouts/:id/show/edit", WorkoutLive.Show, :edit
+
+    live "/exercises", ExerciseLive.Index, :index
+    live "/exercises/new", ExerciseLive.Index, :new
+    live "/exercises/:id/edit", ExerciseLive.Index, :edit
+
+    live "/exercises/:id", ExerciseLive.Show, :show
+    live "/exercises/:id/show/edit", ExerciseLive.Show, :edit
 
     live_session :require_authenticated_user,
       on_mount: [{AllyourgymWeb.UserAuth, :ensure_authenticated}] do

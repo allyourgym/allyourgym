@@ -22,13 +22,35 @@ defmodule AllyourgymWeb.UserLive do
   @impl Backpex.LiveResource
   def fields do
     [
-      title: %{
+      name: %{
         module: Backpex.Fields.Text,
-        label: "Name"
+        label: "Name",
+        searchable: true
       },
-      views: %{
+      email: %{
         module: Backpex.Fields.Text,
-        label: "Email"
+        label: "Email",
+        searchable: true
+      },
+      role: %{
+        module: Backpex.Fields.Select,
+        label: "Role",
+        options: [
+          {"Admin", :admin},
+          {"User", :user}
+        ]
+      },
+      height: %{
+        module: Backpex.Fields.Number,
+        label: "Height"
+      },
+      gender: %{
+        module: Backpex.Fields.Select,
+        label: "Gender",
+        options: [
+          {"Male", "male"},
+          {"Female", "female"}
+        ]
       }
     ]
   end

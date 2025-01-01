@@ -19,12 +19,23 @@ defmodule AllyourgymWeb.ExerciseLive do
   @impl Backpex.LiveResource
   def plural_name, do: "Exercises"
 
+@impl Backpex.LiveResource
+  def filters do
+    [
+      muscle_group: %{
+        module: AllyourgymWeb.Filters.ExerciseCategorySelect,
+        label: "Category"
+      }
+    ]
+  end
+
   @impl Backpex.LiveResource
   def fields do
     [
       name: %{
         module: Backpex.Fields.Text,
-        label: "Name"
+        label: "Name",
+        searchable: true
       },
       notes: %{
         module: Backpex.Fields.Textarea,
@@ -41,6 +52,21 @@ defmodule AllyourgymWeb.ExerciseLive do
       muscle_group: %{
         module: Backpex.Fields.Text,
         label: "Category"
+      }
+    ]
+  end
+
+  @impl Backpex.LiveResource
+  def metrics do
+    [
+      total_exercises: %{
+        module: Backpex.Metrics.Value,
+        label: "Total Exercises",
+        class: "lg:w-1/4",
+        select: dynamic([p], count(p.id)),
+        format: fn value ->
+          Integer.to_string(value) <> " exercises"
+        end
       }
     ]
   end

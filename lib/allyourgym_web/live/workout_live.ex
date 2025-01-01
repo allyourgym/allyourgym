@@ -24,7 +24,8 @@ defmodule AllyourgymWeb.WorkoutLive do
     [
       name: %{
         module: Backpex.Fields.Text,
-        label: "Name"
+        label: "Name",
+        searchable: true
       },
       description: %{
         module: Backpex.Fields.Text,
@@ -48,21 +49,6 @@ defmodule AllyourgymWeb.WorkoutLive do
         display_field: :email,
         live_resource: AllyourgymWeb.UserLive
       },
-      # exercises: %{
-      #   module: Backpex.Fields.HasMany,
-      #   label: "Exercises",
-      #   display_field: :name,
-      #   live_resource: AllyourgymWeb.ExerciseLive,
-      # }
-      # exercises: %{
-      #   module: Backpex.Fields.HasManyOrderable,
-      #   label: "Exercises",
-      #   order_field: :position,
-      #   order_direction: :asc,
-      #   display_field: :name,
-      #   live_resource: AllyourgymWeb.ExerciseLive,
-      # }
-
       exercises: %{
         module: Backpex.Fields.HasManyThrough,
         label: "Exercises",
@@ -78,21 +64,9 @@ defmodule AllyourgymWeb.WorkoutLive do
           position: %{
             module: Backpex.Fields.Number,
             label: "Position"
-          },
-          # exercise: %{
-          #   module: Backpex.Fields.Select,
-          #   # module: Backpex.Fields.Text,
-          #   label: "Name",
-          # }
-        ],
-        # options_query: fn query, _assigns ->
-        #   select_merge(
-        #     query,
-        #     [a],
-        #     %{eee: fragment("concat(?, ', ', ?)", a.name, a.muscle_group)}
-        #   )
-        # end
-        }
+          }
+        ]
+      }
     ]
   end
 end

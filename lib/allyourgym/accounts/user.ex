@@ -15,6 +15,7 @@ defmodule Allyourgym.Accounts.User do
     field :hashed_password, :string, redact: true
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
+    field :role, Ecto.Enum, values: [:user, :admin], default: :user
 
     timestamps(type: :utc_datetime)
   end
@@ -44,7 +45,7 @@ defmodule Allyourgym.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :name, :height, :gender, :role])
     |> validate_email(opts)
     |> validate_password(opts)
   end
@@ -180,4 +181,19 @@ defmodule Allyourgym.Accounts.User do
     |> cast(attrs, [:email, :name, :height, :gender])
     |> validate_required([:email, :name])
   end
+
+  @doc """
+  A user changeset for registering admins.
+  """
+  def admin_registration_changeset(user, attrs) do
+    user
+    |> registration_changeset(attrs)
+    |> prepare_changes(&set_admin_role/1)
+  end
+
+  defp set_admin_role(changeset) do
+    changeset
+    |> put_change(:role, :admin)
+  end
+
 end

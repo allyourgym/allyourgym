@@ -508,4 +508,16 @@ defmodule Allyourgym.AccountsTest do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "register_admin/1" do
+    test "registers users with a hashed password and sets role to :admin" do
+      email = unique_user_email()
+      {:ok, user} = Accounts.register_admin(%{email: email, password: valid_user_password()})
+      assert user.email == email
+      assert is_binary(user.hashed_password)
+      assert is_nil(user.confirmed_at)
+      assert is_nil(user.password)
+      assert user.role == :admin
+    end
+  end
 end
